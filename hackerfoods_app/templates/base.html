@@ -1,3 +1,6 @@
+{% load django_htmx %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,22 +17,51 @@
             align-items: center;
             padding: 1rem;
             background-color: #ff6600;
+            margin: 0rem 0rem 1rem 0rem;
+            gap: 2rem;
             a {
                 color: #000000;
             }
+            nav {
+                display: flex;
+                gap: 2rem;
+            }
         }
     </style>
+    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/debug.js" defer></script>
 </head>
 <body>
     <div class="top-bar container-fluid">
-        <h1><a href="{% url 'home' %}">hackerfoods</a></h1>
+        <h1>
+            <a 
+                hx-get="{% url 'home' %}"
+                hx-target="#content"
+                hx-push-url="true"
+            >
+                hackerfoods
+            </a>
+        </h1>
         <nav>
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'about' %}">About</a>
+            <a 
+                hx-get="{% url 'home' %}"
+                hx-target="#content"
+                hx-push-url="true"
+            >
+                Home
+            </a>
+            <a 
+                hx-get="{% url 'about' %}" 
+                hx-target="#content"
+                hx-push-url="true"
+            >
+                About
+            </a>
         </nav>
     </div>
-    <div class="container">
+    <div id="content" class="container">
         {% block page_content %}{% endblock page_content %}
     </div>
+    {% django_htmx_script %}
 </body>
 </html>
