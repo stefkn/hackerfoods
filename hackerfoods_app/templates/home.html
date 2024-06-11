@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-    <p>home page content</p>
+{% if recipes %}
+<ul>
+    {% for recipe in recipes %}
+    <li><a href="/{{ recipe.id }}/">{{ recipe.title }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No recipes are available.</p>
+{% endif %}
 {% endblock page_content %}
