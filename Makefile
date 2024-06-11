@@ -4,6 +4,9 @@ ruff:
 	poetry run ruff check
 	poetry run ruff format
 
+install:
+	poetry install
+
 runserver: 
 	poetry run python manage.py runserver
 
