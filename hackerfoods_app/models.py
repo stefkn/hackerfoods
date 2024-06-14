@@ -37,4 +37,4 @@ class Vote(models.Model):
     vote_value = models.IntegerField()
 
     def __str__(self):
-        return f"{self.recipe.title} - {self.user.username} - {self.vote}"
+        return f"{self.recipe.title} - {self.user.username} - {self.vote_value}"
