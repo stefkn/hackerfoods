@@ -5,7 +5,6 @@ class Recipe(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to="images/", blank=True)
     ingredients = models.ManyToManyField("Ingredient")
     instructions = models.TextField()
     cooking_time = models.IntegerField()
@@ -28,3 +27,14 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Vote(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE)
+    vote_value = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.recipe.title} - {self.user.username} - {self.vote}"
