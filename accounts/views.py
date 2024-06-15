@@ -29,3 +29,33 @@ def home(request):
         request, "accounts_home.html", "full/accounts_home_full.html"
     )
     return render(request, template_name, {})
+
+def login(request):
+    template_name = return_partial_or_full(
+        request, "login.html", "full/login_full.html"
+    )
+
+    if request.method != "POST":
+        return render(request, template_name, {"form": AuthenticationForm()})
+
+    username = request.POST["username"]
+    password = request.POST["password"]
+    user = auth.authenticate(request, username=username, password=password)
+
+    if user is not None:
+        auth.login(request, user)
+    else:
+        return render(request, template_name, {"error": "Invalid credentials"})
+    
+    template_name = return_partial_or_full(
+        request, "accounts_home.html", "full/accounts_home_full.html"
+    )
+
+    return render(request, template_name, {})
+
+def logout(request):
+    auth.logout(request)
+    template_name = return_partial_or_full(
+        request, "accounts_home.html", "full/accounts_home_full.html"
+    )
+    return render(request, template_name, {})
