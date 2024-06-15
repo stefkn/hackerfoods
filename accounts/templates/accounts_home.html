@@ -2,11 +2,23 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
+<p>Hi {{ user.username }}!</p>
+<p>
+  <a hx-get="{% url 'logout' %}" hx-target="#content" hx-push-url="true">
+    Log out
+  </a>
+</p>
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a> |
-  <a href="{% url 'signup' %}">Sign Up</a>
+<p>You are not logged in</p>
+<p>
+  <a hx-get="{% url 'accounts:login' %}" hx-target="#content" hx-push-url="true">
+    Log in
+  </a>
+</p>
+<p>
+  <a hx-get="{% url 'accounts:signup' %}" hx-target="#content" hx-push-url="true">
+    Sign up
+  </a>
+</p>
 {% endif %}
 {% endblock %}
