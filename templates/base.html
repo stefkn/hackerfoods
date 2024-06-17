@@ -71,7 +71,11 @@
                 hx-target="#content"
                 hx-push-url="true"
             >
-                Account
+                {% if user.is_authenticated %}
+                Hi {{ user.username }}!
+                {% else %}
+                Log in
+                {% endif %}
             </a>
         </nav>
     </div>

@@ -1,10 +1,10 @@
-{% block title %}Home{% endblock %}
+{% block title %}Account Home{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
 <p>Hi {{ user.username }}!</p>
 <p>
-  <a hx-get="{% url 'logout' %}" hx-target="#content" hx-push-url="true">
+  <a href="{% url 'logout' %}">
     Log out
   </a>
 </p>
