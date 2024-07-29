@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render
+from django.views.generic import TemplateView
 from django.db.models import Count, Sum
 from .models import Recipe, Vote
 
@@ -32,6 +33,9 @@ def about(request):
 
     return render(request, template_name, {})
 
+class AboutView(TemplateView):
+    template_name = "about.html"
+
 
 def detail(request, recipe_id):
     context = {"recipe": get_object_or_404(Recipe, pk=recipe_id)}
@@ -40,3 +44,12 @@ def detail(request, recipe_id):
     )
 
     return render(request, template_name, context)
+
+
+def vote(request, recipe_id, vote_value):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    vote = Vote.objects.create(recipe=recipe, vote_value=vote_value)
+    vote.save()
+
+    return render(request, "vote.html", {"recipe": recipe, "vote": vote})
+
